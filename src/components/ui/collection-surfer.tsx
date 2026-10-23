@@ -320,11 +320,13 @@ function Card({
           <video
             ref={videoRef}
             src={item.video}
+            poster={item.image}
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
+            disablePictureInPicture
             aria-label={`${item.title} video`}
             className="w-full h-full object-cover block transition-transform duration-500 group-hover:scale-[1.03]"
           />

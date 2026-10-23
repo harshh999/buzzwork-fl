@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 export interface CircularVideoItem {
   id: string;
   url: string;
+  poster?: string;
   label: string;
   index: string;
   category?: string;
@@ -227,17 +228,13 @@ export function CircularVideoGallery({
                     videosRef.current[index] = el;
                   }}
                   src={item.url}
+                  poster={item.poster}
                   autoPlay
                   muted
                   loop
                   playsInline
                   preload="auto"
                   disablePictureInPicture
-                  onEnded={(e) => {
-                    const v = e.currentTarget;
-                    v.currentTime = 0;
-                    v.play().catch(() => {});
-                  }}
                   aria-label={`Buzzwork video ${item.index}`}
                   className="w-full h-full object-cover block transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                 />

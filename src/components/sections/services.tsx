@@ -115,7 +115,7 @@ export function Services() {
         </div>
 
         {/* Editorial Services List */}
-        <div ref={listRef} className="w-full max-w-[1400px] mx-auto border-t border-black/12 flex flex-col">
+        <div ref={listRef} className="w-full max-w-[1400px] mx-auto border-t border-[color:var(--color-buzz-line)] flex flex-col transition-colors duration-300">
           {SERVICES.map((s, i) => (
             <ServiceRow
               key={s.n}
@@ -157,10 +157,10 @@ function ServiceRow({ service, index, isListInView, isExpanded, isMobile, onRowC
       onMouseEnter={() => !isMobile && setIsHovered(true)}
       onMouseLeave={() => !isMobile && setIsHovered(false)}
       onClick={() => onRowClick(index)}
-      className="grid grid-cols-[50px_1fr_40px] md:grid-cols-[80px_1fr_60px] items-center border-b border-black/12 py-6 md:py-8 lg:py-10 transition-all duration-300 relative overflow-hidden cursor-pointer w-full text-left"
+      className="grid grid-cols-[50px_1fr_40px] md:grid-cols-[80px_1fr_60px] items-center border-b border-[color:var(--color-buzz-line)] py-6 md:py-8 lg:py-10 transition-colors duration-300 relative overflow-hidden cursor-pointer w-full text-left"
     >
       {/* 1. Number Indicator */}
-      <span className="text-[12px] font-normal tracking-[0.18em] text-black/45 align-middle select-none">
+      <span className="text-[12px] font-normal tracking-[0.18em] text-[color:var(--color-buzz-muted)] align-middle select-none">
         {service.n}
       </span>
 
@@ -171,7 +171,7 @@ function ServiceRow({ service, index, isListInView, isExpanded, isMobile, onRowC
           <motion.h3
             animate={{ x: isHovered && !isMobile ? 12 : 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="font-display text-[26px] md:text-[36px] lg:text-[44px] font-medium tracking-[-0.03em] text-black"
+            className="font-display text-[26px] md:text-[36px] lg:text-[44px] font-medium tracking-[-0.03em] text-[color:var(--color-buzz-ink)] transition-colors duration-300"
           >
             {service.title}
           </motion.h3>
@@ -184,7 +184,7 @@ function ServiceRow({ service, index, isListInView, isExpanded, isMobile, onRowC
               scale: isHovered && !isMobile ? 1 : 0.95,
             }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="hidden md:block w-[140px] h-[80px] lg:w-[160px] lg:h-[90px] rounded-[4px] border border-black/10 overflow-hidden bg-[color:var(--color-buzz-bg)] mr-4 lg:mr-8 flex-shrink-0 relative"
+            className="hidden md:block w-[140px] h-[80px] lg:w-[160px] lg:h-[90px] rounded-[4px] border border-[color:var(--color-buzz-line)] overflow-hidden bg-[color:var(--color-buzz-bg)] text-[color:var(--color-buzz-ink)] mr-4 lg:mr-8 flex-shrink-0 relative transition-colors duration-300"
           >
             <ServiceGraphic num={service.n} active={isHovered} />
           </motion.div>
@@ -193,11 +193,11 @@ function ServiceRow({ service, index, isListInView, isExpanded, isMobile, onRowC
         {/* Desktop Description */}
         <motion.div
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: isHovered && !isMobile ? "auto" : 0, opacity: isHovered && !isMobile ? 0.6 : 0 }}
+          animate={{ height: isHovered && !isMobile ? "auto" : 0, opacity: isHovered && !isMobile ? 0.75 : 0 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
           className="overflow-hidden hidden md:block"
         >
-          <p className="text-black text-[14.5px] mt-2 max-w-xl leading-relaxed">
+          <p className="text-[color:var(--color-buzz-muted)] text-[14.5px] mt-2 max-w-xl leading-relaxed">
             {service.body}
           </p>
         </motion.div>
@@ -209,10 +209,10 @@ function ServiceRow({ service, index, isListInView, isExpanded, isMobile, onRowC
           transition={{ duration: 0.35, ease: "easeOut" }}
           className="overflow-hidden md:hidden"
         >
-          <p className="text-black/60 text-[14px] mt-2 leading-relaxed">
+          <p className="text-[color:var(--color-buzz-muted)] text-[14px] mt-2 leading-relaxed">
             {service.body}
           </p>
-          <div className="w-full h-[120px] rounded-[4px] border border-black/10 overflow-hidden bg-[color:var(--color-buzz-bg)] mt-4 mb-2 relative">
+          <div className="w-full h-[120px] rounded-[4px] border border-[color:var(--color-buzz-line)] overflow-hidden bg-[color:var(--color-buzz-bg)] text-[color:var(--color-buzz-ink)] mt-4 mb-2 relative transition-colors duration-300">
             <ServiceGraphic num={service.n} active={isExpanded} />
           </div>
         </motion.div>
@@ -225,7 +225,7 @@ function ServiceRow({ service, index, isListInView, isExpanded, isMobile, onRowC
             ? { x: 4, y: -4, color: "var(--color-buzz-yellow)" }
             : isExpanded && isMobile
             ? { color: "var(--color-buzz-yellow)" }
-            : { x: 0, y: 0, color: "#111111" }
+            : { x: 0, y: 0, color: "var(--color-buzz-ink)" }
         }
         transition={{ duration: 0.35, ease: "easeOut" }}
         className="text-[24px] md:text-[28px] font-normal flex justify-end select-none"

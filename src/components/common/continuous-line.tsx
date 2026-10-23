@@ -310,9 +310,9 @@ export function ContinuousEditorialLine() {
             x2="0"
             y2={height}
           >
-            {/* Dark stroke on light sections */}
-            <stop offset="0%" stopColor="#111111" stopOpacity="0.14" />
-            <stop offset={`${pStart}%`} stopColor="#111111" stopOpacity="0.14" />
+            {/* Upper stroke: dark stroke on light sections, white/light stroke in dark mode */}
+            <stop offset="0%" stopColor="var(--color-buzz-ink)" stopOpacity="0.16" />
+            <stop offset={`${pStart}%`} stopColor="var(--color-buzz-ink)" stopOpacity="0.16" />
             {/* Smooth transition into white stroke across footer entry boundary */}
             <stop offset={`${pEnd}%`} stopColor="#FFFFFF" stopOpacity="0.32" />
             <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.32" />
@@ -332,7 +332,7 @@ export function ContinuousEditorialLine() {
 
         {/* Fixed Markers on the upper path */}
         <g ref={markerGrayRef}>
-          <circle r="2" fill="rgba(17,17,17,0.25)" />
+          <circle r="2" fill="var(--color-buzz-muted)" opacity="0.4" />
         </g>
         <g ref={markerSquareRef}>
           <rect

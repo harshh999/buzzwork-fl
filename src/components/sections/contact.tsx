@@ -143,7 +143,7 @@ export function Contact() {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="group inline-flex w-fit items-center justify-center gap-2 rounded-full bg-[#111111] px-7 py-3 text-[14px] font-medium text-white shadow-sm transition-all duration-300 hover:bg-black hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+                    className="group inline-flex w-fit items-center justify-center gap-2 rounded-full bg-[#111111] dark:bg-[color:var(--color-buzz-yellow)] px-7 py-3 text-[14px] font-medium text-white dark:text-[#111111] shadow-sm transition-all duration-300 hover:bg-black dark:hover:bg-[#f6cd32] hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
                   >
                     <span>{status === "submitting" ? "Sending..." : "Send message"}</span>
                     <span
@@ -159,7 +159,7 @@ export function Contact() {
                     <motion.div
                       initial={reduced ? false : { opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex items-center gap-2.5 rounded-xl bg-black/[0.03] border border-black/[0.08] px-4 py-3 text-[14px] text-[color:var(--color-buzz-ink)]"
+                      className="flex items-center gap-2.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] px-4 py-3 text-[14px] text-[color:var(--color-buzz-ink)]"
                     >
                       <CheckCircle2 className="h-4 w-4 text-[color:var(--color-buzz-yellow)] shrink-0" />
                       <span>Thanks — we'll get back to you shortly.</span>

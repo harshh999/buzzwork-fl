@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useNavigate, useLocation } from "@tanstack/react-router";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ThemeToggle } from "@/components/common/theme-toggle";
 
 export const NAV = [
   { id: "home", label: "Home" },
@@ -76,40 +77,6 @@ export function Nav() {
     }
   };
 
-  // Construct dynamic styles based on device state
-  // Using regular CSS objects for styling
-  const shellStyle: React.CSSProperties = {
-    position: "relative",
-    margin: "0 auto",
-    pointerEvents: "auto",
-    overflow: "hidden",
-    boxSizing: "border-box",
-    
-    width: !isMobile ? "min(900px, calc(100vw - 48px))" : "calc(100vw - 32px)",
-    maxWidth: "900px",
-    marginTop: !isMobile ? "24px" : "14px",
-    padding: !isMobile ? "10px 16px" : "10px 14px",
-    borderRadius: "9999px",
-    
-    backgroundColor: "rgba(245, 244, 241, 0.92)",
-    boxShadow: "0 6px 24px rgba(0, 0, 0, 0.04)",
-    border: "1px solid rgba(20, 20, 20, 0.08)",
-  };
-
-  const innerContentStyle: React.CSSProperties = {
-    position: "relative",
-    width: "100%",
-    display: "grid",
-    alignItems: "center",
-    boxSizing: "border-box",
-    
-    gridTemplateColumns: !isMobile 
-      ? "auto 1fr auto" 
-      : "minmax(0, 1fr) auto minmax(0, 1fr)",
-      
-    columnGap: !isMobile ? "32px" : "0px",
-  };
-
   return (
     <>
       <header 
@@ -118,10 +85,17 @@ export function Nav() {
         <nav 
           id="main-navigation"
           aria-label="Main navigation"
-          className="backdrop-blur-xl" 
-          style={shellStyle}
+          className="relative mx-auto pointer-events-auto overflow-hidden box-border backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300 rounded-full w-[calc(100vw-32px)] md:w-[min(900px,calc(100vw-48px))] max-w-[900px] mt-[14px] md:mt-[24px] px-[14px] py-[10px] md:px-[16px] bg-[rgba(245,244,241,0.92)] dark:bg-[rgba(16,16,14,0.88)] shadow-[0_6px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.45)] border border-[rgba(20,20,20,0.08)] dark:border-[rgba(255,255,255,0.12)]"
         >
-          <div style={innerContentStyle}>
+          <div 
+            className="relative w-full grid items-center box-border"
+            style={{
+              gridTemplateColumns: !isMobile 
+                ? "auto 1fr auto" 
+                : "minmax(0, 1fr) auto minmax(0, 1fr)",
+              columnGap: !isMobile ? "32px" : "0px",
+            }}
+          >
             {/* Logo Column */}
             <div 
               className="relative transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" 
@@ -140,7 +114,7 @@ export function Nav() {
                     onError={() => setLogoFailed(true)}
                   />
                 ) : (
-                  <span className="font-display text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#141414]">
+                  <span className="font-display text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#141414] dark:text-[#f5f4ef]">
                     Buzzwork
                   </span>
                 )}
@@ -158,7 +132,7 @@ export function Nav() {
                     <button
                       id={`nav-link-${item.id}`}
                       onClick={() => go(item.id)}
-                      className="group relative rounded-full px-4.5 py-2 text-[13px] font-medium text-[#141414]/70 transition-colors hover:text-[#141414] cursor-pointer"
+                      className="group relative rounded-full px-4.5 py-2 text-[13px] font-medium text-[#141414]/70 dark:text-[#f5f4ef]/70 transition-colors hover:text-[#141414] dark:hover:text-[#f5f4ef] cursor-pointer"
                     >
                       {item.label}
                       <span
@@ -173,43 +147,47 @@ export function Nav() {
               </ul>
             </div>
 
-            {/* CTA / Menu Button Column */}
+            {/* CTA / Theme Toggle / Menu Button Column */}
             <div 
-              className="relative transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" 
+              className="relative flex items-center gap-3 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" 
               style={{ gridColumn: 3, justifySelf: "end", transform: "translateX(0)" }}
             >
-              {/* Desktop CTA */}
-              <div className="hidden md:block">
+              {/* Desktop: Theme Toggle immediately to the left of the rightmost LET'S TALK CTA */}
+              <div className="hidden md:flex items-center gap-3">
+                <ThemeToggle />
                 <button
                   id="nav-lets-talk-cta"
                   onClick={() => go("contact")}
-                  className="inline-flex items-center justify-center rounded-full bg-[#141414] px-5 py-2 text-[13px] font-medium text-white shadow-sm transition-all duration-300 hover:bg-black hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                  className="inline-flex items-center justify-center rounded-full bg-[#141414] hover:bg-black text-white dark:bg-[color:var(--color-buzz-yellow)] dark:text-[#111111] dark:hover:bg-[#f6cd32] px-5 py-2 text-[13px] font-medium shadow-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shrink-0"
                 >
                   Let's Talk →
                 </button>
               </div>
 
-              {/* Mobile Menu Toggle Button */}
-              <button
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/[0.08] bg-black/[0.02] md:hidden cursor-pointer hover:bg-black/[0.04] transition-colors relative z-50 pointer-events-auto"
-                onClick={() => setOpen((v) => !v)}
-                aria-label="Toggle navigation menu"
-              >
-                <span className="relative block h-3.5 w-4">
-                  <span
-                    className={[
-                      "absolute left-0 top-1 h-[1.5px] w-4 bg-[#141414] transition-all duration-300",
-                      open ? "translate-y-[3px] rotate-45" : "",
-                    ].join(" ")}
-                  />
-                  <span
-                    className={[
-                      "absolute left-0 top-2.5 h-[1.5px] w-4 bg-[#141414] transition-all duration-300",
-                      open ? "-translate-y-[3px] -rotate-45" : "",
-                    ].join(" ")}
-                  />
-                </span>
-              </button>
+              {/* Mobile Right Controls: Compact Toggle & Menu Hamburger */}
+              <div className="flex md:hidden items-center gap-2">
+                <ThemeToggle size="compact" />
+                <button
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/[0.08] dark:border-white/[0.14] bg-black/[0.02] dark:bg-white/[0.06] cursor-pointer hover:bg-black/[0.04] dark:hover:bg-white/[0.10] transition-colors relative z-50 pointer-events-auto"
+                  onClick={() => setOpen((v) => !v)}
+                  aria-label="Toggle navigation menu"
+                >
+                  <span className="relative block h-3.5 w-4">
+                    <span
+                      className={[
+                        "absolute left-0 top-1 h-[1.5px] w-4 bg-[#141414] dark:bg-[#f5f4ef] transition-all duration-300",
+                        open ? "translate-y-[3px] rotate-45" : "",
+                      ].join(" ")}
+                    />
+                    <span
+                      className={[
+                        "absolute left-0 top-2.5 h-[1.5px] w-4 bg-[#141414] dark:bg-[#f5f4ef] transition-all duration-300",
+                        open ? "-translate-y-[3px] -rotate-45" : "",
+                      ].join(" ")}
+                    />
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </nav>
@@ -223,12 +201,15 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 bg-[#F5F4F1] z-40 md:hidden flex flex-col justify-between px-6 pt-32 pb-12"
+            className="fixed inset-0 bg-[#F5F4F1] dark:bg-[#0b0b0a] z-40 md:hidden flex flex-col justify-between px-6 pt-32 pb-12 transition-colors duration-300"
           >
             <div className="flex flex-col gap-6">
-              <span className="text-[10px] font-mono tracking-[0.25em] text-[#141414]/40 uppercase mb-2">
-                BUZZWORK NAVIGATION
-              </span>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-mono tracking-[0.25em] text-[#141414]/40 dark:text-[#f5f4ef]/40 uppercase">
+                  BUZZWORK NAVIGATION
+                </span>
+                <ThemeToggle size="compact" />
+              </div>
               <ul className="flex flex-col">
                 {NAV.map((item, idx) => (
                   <motion.li
@@ -239,7 +220,7 @@ export function Nav() {
                   >
                     <button
                       onClick={() => go(item.id)}
-                      className="w-full text-left font-display text-[32px] font-medium tracking-tight text-[#141414] py-3.5 border-b border-black/[0.06] cursor-pointer hover:text-[color:var(--color-buzz-yellow)] transition-colors"
+                      className="w-full text-left font-display text-[32px] font-medium tracking-tight text-[#141414] dark:text-[#f5f4ef] py-3.5 border-b border-black/[0.06] dark:border-white/[0.08] cursor-pointer hover:text-[color:var(--color-buzz-yellow)] transition-colors"
                     >
                       {item.label}
                     </button>
@@ -256,11 +237,11 @@ export function Nav() {
             >
               <button
                 onClick={() => go("contact")}
-                className="w-full inline-flex items-center justify-center rounded-full bg-[#141414] py-4 text-[15px] font-medium text-white shadow-sm transition-all duration-300 hover:bg-black active:scale-[0.98] cursor-pointer"
+                className="w-full inline-flex items-center justify-center rounded-full bg-[#141414] hover:bg-black text-white dark:bg-[color:var(--color-buzz-yellow)] dark:text-[#111111] dark:hover:bg-[#f6cd32] py-4 text-[15px] font-medium shadow-sm transition-all duration-300 active:scale-[0.98] cursor-pointer"
               >
                 Lets Talk →
               </button>
-              <span className="text-center text-[11px] text-[#141414]/45 font-mono">
+              <span className="text-center text-[11px] text-[#141414]/45 dark:text-[#f5f4ef]/45 font-mono">
                 BUZZWORK © 2026. ALL RIGHTS RESERVED
               </span>
             </motion.div>
@@ -270,3 +251,4 @@ export function Nav() {
     </>
   );
 }
+

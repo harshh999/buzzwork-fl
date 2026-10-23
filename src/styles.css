@@ -8,14 +8,14 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", "Playfair Display", Georgia, serif;
-  --color-buzz-bg: #f7f6f2;
-  --color-buzz-ink: #111111;
-  --color-buzz-muted: #6b6a63;
-  --color-buzz-line: #e6e4dc;
-  --color-buzz-yellow: #f5c518;
+  --color-buzz-bg: var(--buzz-bg);
+  --color-buzz-ink: var(--buzz-ink);
+  --color-buzz-muted: var(--buzz-muted);
+  --color-buzz-line: var(--buzz-line);
+  --color-buzz-yellow: var(--buzz-yellow);
 }
 
-/* Subtle warm paper grain — applied to the body via ::before */
+/* Subtle warm paper grain — applied via PaperGrain component */
 @utility paper-grain {
   position: relative;
   isolation: isolate;
@@ -29,6 +29,10 @@
   opacity: 0.5;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0 0.06 0 0 0 0.12 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+:is(.dark) .paper-grain-layer {
+  opacity: 0.18;
+  mix-blend-mode: overlay;
 }
 
 /* Hand-drawn marker highlight behind a word */
@@ -45,6 +49,9 @@
   padding: 0 0.12em;
   border-radius: 2px;
 }
+:is(.dark) .marker-highlight {
+  color: #111111;
+}
 
 /*
  * Design system definition.
@@ -52,12 +59,7 @@
  * The @theme inline block maps CSS custom properties to Tailwind utility
  * classes (e.g. --color-primary -> bg-primary, text-primary).
  *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * The :root and .dark blocks define the actual color values using oklch / hex.
  */
 
 @theme inline {
@@ -104,26 +106,33 @@
 }
 
 :root {
+  /* Buzzwork brand tokens - Light Mode */
+  --buzz-bg: #f7f6f2;
+  --buzz-ink: #111111;
+  --buzz-muted: #6b6a63;
+  --buzz-line: #e6e4dc;
+  --buzz-yellow: #f5c518;
+
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --background: #f7f6f2;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #111111;
+  --primary-foreground: #f7f6f2;
+  --secondary: #e6e4dc;
+  --secondary-foreground: #111111;
+  --muted: #e6e4dc;
+  --muted-foreground: #6b6a63;
+  --accent: #f5c518;
+  --accent-foreground: #111111;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: #e6e4dc;
+  --input: #e6e4dc;
+  --ring: #f5c518;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,48 +149,56 @@
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
+  /* Buzzwork brand tokens - Art-Directed Dark Mode (Near-black / deep charcoal) */
+  --buzz-bg: #0b0b0a;
+  --buzz-ink: #f5f4ef;
+  --buzz-muted: #9c9a92;
+  --buzz-line: #20201d;
+  --buzz-yellow: #f5c518;
+
+  --background: #0b0b0a;
+  --foreground: #f5f4ef;
+  --card: #141412;
+  --card-foreground: #f5f4ef;
+  --popover: #141412;
+  --popover-foreground: #f5f4ef;
+  --primary: #f5c518;
+  --primary-foreground: #111111;
+  --secondary: #1a1a18;
+  --secondary-foreground: #f5f4ef;
+  --muted: #1c1c19;
+  --muted-foreground: #9c9a92;
+  --accent: #f5c518;
+  --accent-foreground: #111111;
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
+  --border: #20201d;
+  --input: #262622;
+  --ring: #f5c518;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --sidebar: #141412;
+  --sidebar-foreground: #f5f4ef;
+  --sidebar-primary: #f5c518;
+  --sidebar-primary-foreground: #111111;
+  --sidebar-accent: #1a1a18;
+  --sidebar-accent-foreground: #f5f4ef;
+  --sidebar-border: #20201d;
+  --sidebar-ring: #f5c518;
 }
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: var(--color-buzz-line);
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--color-buzz-bg);
+    color: var(--color-buzz-ink);
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 }
 

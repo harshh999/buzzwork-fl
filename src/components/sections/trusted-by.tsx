@@ -95,12 +95,12 @@ export function TrustedBy() {
                 ease: [0.22, 1, 0.36, 1],
                 delay: 0.25 + index * 0.1,
               }}
-              className="group relative flex items-center justify-center bg-[#ffffff] border border-black/[0.06] rounded-[20px] p-6 sm:p-8 lg:p-10 min-h-[140px] sm:min-h-[160px] lg:min-h-[180px] shadow-[0_4px_20px_rgba(0,0,0,0.01)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 ease-out cursor-pointer overflow-hidden"
+              className="group relative flex items-center justify-center bg-[#ffffff] dark:bg-[#141412] border border-black/[0.06] dark:border-white/[0.08] rounded-[20px] p-6 sm:p-8 lg:p-10 min-h-[140px] sm:min-h-[160px] lg:min-h-[180px] shadow-[0_4px_20px_rgba(0,0,0,0.01)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 ease-out cursor-pointer overflow-hidden"
             >
               <img
                 src={logo.src}
                 alt={`${logo.name} Logo`}
-                className={`object-contain w-auto ${logo.heightClass} ${logo.maxWClass} select-none transition-transform duration-300 group-hover:scale-105`}
+                className={`object-contain w-auto ${logo.heightClass} ${logo.maxWClass} select-none transition-transform duration-300 group-hover:scale-105 dark:brightness-0 dark:invert dark:opacity-90`}
                 loading="lazy"
               />
             </motion.div>
