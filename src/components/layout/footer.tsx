@@ -87,9 +87,9 @@ export function Footer() {
             className="w-full lg:max-w-[660px] xl:max-w-[720px] shrink-0"
           >
             <h2 className="font-display font-extrabold uppercase text-[clamp(2.15rem,4.4vw,3.75rem)] leading-[0.93] tracking-[-0.03em] text-[#F5F5F0]">
-              <span className="block">MAKE SOME NOISE.</span>
+              <span className="block">BE THE BRAND</span>
               <span className="block mt-[0.06em]">
-                MAKE IT <span className="text-[#FFD400]">MATTER.</span>
+                <span className="text-[#FFD400]">THEY TALK ABOUT.</span>
               </span>
             </h2>
           </motion.div>
